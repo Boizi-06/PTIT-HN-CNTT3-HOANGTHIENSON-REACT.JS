@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function sum(arr) {
+            if (arr.length === 0) return 0;
+
+            const [first, ...rest] = arr;
+
+            if (first % 2 === 0) {
+                return first + sum(rest); // nếu chẵn, cộng vào tổng
+            } else {
+                return sum(rest); // nếu lẻ, bỏ qua
+            }
+        }
+
+
+        console.log(sum([1, 2, 3, 4, 5, 6])); // Output: 12
+
+    </script>
+</body>
+
+</html>

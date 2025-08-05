@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Mảng danh bạ rỗng để lưu trữ các liên hệ
+        const phoneBooks = [];
+
+        // Hàm thêm liên hệ
+        function addContact(name, phoneNumber, email) {
+            const contact = {
+                name: name,
+                phoneNumber: phoneNumber,
+                email: email
+            };
+            phoneBooks.push(contact);
+        }
+
+        // Hàm hiển thị toàn bộ danh bạ
+        function displayContact() {
+            if (phoneBooks.length === 0) {
+                console.log("Danh bạ trống.");
+                return;
+            }
+
+            console.log("Danh bạ hiện tại:");
+            phoneBooks.forEach((contact, index) => {
+                console.log(`${index + 1}. Tên: ${contact.name}, SĐT: ${contact.phoneNumber}, Email: ${contact.email}`);
+            });
+        }
+
+        // Ví dụ sử dụng:
+        addContact("Sơn", "0123456789", "son@example.com");
+        addContact("Trang", "0987654321", "trang@example.com");
+
+        displayContact();
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function typeConsole(type = "log") {
+            const message = `Đây là type: ${type}`;
+
+            if (typeof console[type] === "function") {
+                console[type](message);
+            } else {
+                console.log(`Type "${type}" không hợp lệ. Mặc định dùng console.log.`);
+                console.log(message);
+            }
+        }
+
+        // Ví dụ:
+        typeConsole();         // Mặc định: console.log("Đây là type: log")
+        typeConsole("warn");   // console.warn("Đây là type: warn")
+        typeConsole("error");  // console.error("Đây là type: error")
+        typeConsole("abc");    // Không hợp lệ -> log cảnh báo và log bình thường
+
+    </script>
+</body>
+
+</html>

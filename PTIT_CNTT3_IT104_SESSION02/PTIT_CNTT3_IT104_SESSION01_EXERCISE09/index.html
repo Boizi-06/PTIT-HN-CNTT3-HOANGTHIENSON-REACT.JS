@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getStudentSummary(student) {
+            const subjects = student.subjects;
+
+            let total = 0;
+            let bestSubject = subjects[0];
+            let worstSubject = subjects[0];
+
+            for (let subj of subjects) {
+                total += subj.score;
+
+                if (subj.score > bestSubject.score) {
+                    bestSubject = subj;
+                }
+
+                if (subj.score < worstSubject.score) {
+                    worstSubject = subj;
+                }
+            }
+
+            const avg = parseFloat((total / subjects.length).toFixed(2));
+
+            let ranking = "";
+            if (avg >= 8.5) ranking = "Học sinh giỏi";
+            else if (avg >= 7) ranking = "Học sinh khá";
+            else if (avg >= 5) ranking = "Học sinh trung bình";
+            else ranking = "Học sinh yếu";
+
+
+            console.log(`%c${student.name} is %c${student.age} %cyears old.`, "color: white", "color: violet", "color: white");
+            console.log(`%cAverage score: %c${avg} %c→ ${ranking}`, "color: white", "color: #00bcd4", "color: white");
+            console.log(`%cBest subject: %c${bestSubject.name} (%c${bestSubject.score}%)`, "color: white", "color: lightgreen", "color: white");
+            console.log(`%cWeakest subject: %c${worstSubject.name} (%c${worstSubject.score}%)`, "color: white", "color: cyan", "color: white");
+        }
+
+    </script>
+</body>
+
+</html>
