@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Máy tính cơ bản</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    input {
+      width: 100%;
+      margin: 8px 0;
+      padding: 8px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Máy tính đơn giản</h2>
+  <input type="text" id="input1" placeholder="Số thứ nhất">
+  <input type="text" id="input2" placeholder="Số thứ hai">
+  <div>
+    <button onclick="handleOperation('+')">+</button>
+    <button onclick="handleOperation('-')">-</button>
+    <button onclick="handleOperation('*')">*</button>
+    <button onclick="handleOperation('/')">/</button>
+    <button onclick="handleOperation('^')">^</button>
+    <button onclick="handleOperation('√')">√</button>
+    <button onclick="handleOperation('!')">!</button>
+  </div>
+  <div id="result"></div>
+
+  <script src="./dist/b9.js"></script>
+</body>
+</html>
