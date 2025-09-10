@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const response = {
+            data: {
+                id: 1,
+                title: "Destructuring in JavaScript",
+                author: {
+                    name: "Dev",
+                    email: "Dev@gmail.com",
+                },
+            },
+        };
+
+        function extractData({ data }) {
+            const { title, author } = data;
+            const { name: authorName, email: authorEmail } = author;
+
+            console.log("title:", title);
+            console.log("authorName:", authorName);
+            console.log("authorEmail:", authorEmail);
+        }
+
+        // Gọi hàm
+        extractData(response);
+
+    </script>
+</body>
+
+</html>

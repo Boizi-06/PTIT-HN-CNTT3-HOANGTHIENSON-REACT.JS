@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function insertArrayAtPosition(arr1, arr2, position) {
+            if (position < 0 || position > arr1.length) {
+                console.log("Vị trí không hợp lệ!");
+                return;
+            }
+
+            const result = [
+                ...arr1.slice(0, position),
+                ...arr2,
+                ...arr1.slice(position)
+            ];
+
+            console.log(result);
+            return result;
+        }
+        insertArrayAtPosition([1, 2, 3, 7, 8], [4, 5, 6], 3);
+        // Kết quả: [1, 2, 3, 4, 5, 6, 7, 8]
+
+        insertArrayAtPosition(['a', 'b', 'e', 'f'], ['c', 'd'], 2);
+        // Kết quả: ['a', 'b', 'c', 'd', 'e', 'f']
+
+        insertArrayAtPosition([1, 2, 3], [9], 5);
+        // Vị trí không hợp lệ!
+
+
+    </script>
+</body>
+
+</html>

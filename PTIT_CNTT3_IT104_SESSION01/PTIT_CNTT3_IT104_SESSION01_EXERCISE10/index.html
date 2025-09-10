@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function groupAnagrams(words) {
+            const map = new Map();
+
+            for (const word of words) {
+                // Sắp xếp các ký tự trong từ để tạo khóa
+                const key = word.split('').sort().join('');
+
+                // Thêm từ vào nhóm tương ứng với key
+                if (!map.has(key)) {
+                    map.set(key, []);
+                }
+
+                map.get(key).push(word);
+            }
+
+            // Trả về mảng các nhóm
+            return Array.from(map.values());
+        }
+        const input = ["eat", "tea", "tan", "ate", "nat", "bat"];
+        const output = groupAnagrams(input);
+        console.log(output);
+
+    </script>
+</body>
+
+</html>
