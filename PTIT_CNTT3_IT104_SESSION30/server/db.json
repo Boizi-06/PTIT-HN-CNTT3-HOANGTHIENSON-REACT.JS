@@ -1,0 +1,33 @@
+{
+  "user": [
+    {
+      "id":1,
+      "name":"boizi",
+      "email":"son666727@gmail.com",
+      "age":18
+    }, {
+      "id":2,
+      "name":"zitj",
+      "email":"son666727@gmail.com",
+      "age":19
+    }
+    , {
+      "id":3,
+      "name":"hihi",
+      "email":"son666727@gmail.com",
+      "age":20
+    }, {
+      "id":4,
+      "name":"toki",
+      "email":"son666727@gmail.com",
+      "age":21
+    }
+    , {
+      "id":5,
+      "name":"red",
+      "email":"son666727@gmail.com",
+      "age":22
+    }
+
+  ]
+}

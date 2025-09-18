@@ -1,0 +1,100 @@
+.container{
+    width: 400px;
+    height: 500px;
+    background-color: #f1a3bd;
+    border-radius: 10px;
+   margin-left: 100px;
+    .header {
+        width: 300px;
+        height: 100px;
+        margin-left: 50px;
+        padding-top: 15px;
+        .head {
+            font-size: 30px;
+        }
+    }
+    .body {
+        .list-todo {
+            margin-top: 20px;
+           .card-task{
+            background-color: #e993b1;
+            height: 50px;
+                
+                span {
+                    font-size: 20px;
+                }
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: space-around;
+
+                &:hover {
+                    background-color: #ecbecd;
+                }
+           }
+        }
+        .confirm-todo{
+            
+            width: 300px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            margin-top: 10px;
+            margin-left: 80px;
+            span{
+                padding-right: 10px;
+            }
+
+            
+        }
+    }
+
+
+
+   .switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f44336; // đỏ
+    transition: 0.4s;
+    border-radius: 34px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: #4caf50; // xanh
+
+    &::before {
+      transform: translateX(22px);
+    }
+  }
+}
+
+}

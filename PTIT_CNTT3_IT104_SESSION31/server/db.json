@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "title": "bai viet 01",
+      "image": "anh bai viet 01",
+      "date": "18/9/2025",
+      "status": false,
+      "content": "noi dung bai viet 01",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "title": "bai viet 02",
+      "image": "anh bai viet 02",
+      "date": "18/09/2025",
+      "status": false,
+      "content": "noi dung bai viet 02"
+    },
+    {
+      "id": 3,
+      "title": "bai viet 03",
+      "image": "anh bai viet 03",
+      "date": "18/09/2025",
+      "status": false,
+      "content": "noi dung bai viet 03"
+    },
+    {
+      "title": "khắc hưng gà vc",
+      "image": "2131241",
+      "date": "18/9/2025",
+      "status": false,
+      "content": "đánh liên quân feed 0/12",
+      "id": 4
+    }
+  ]
+}
