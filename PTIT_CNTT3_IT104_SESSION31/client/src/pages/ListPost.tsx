@@ -7,7 +7,7 @@ interface Post {
   title: string;
   image: string;
   date: string;
-  status: boolean;
+  status: boolean; // true = ngưng hoạt động
   content: string;
 }
 
@@ -27,6 +27,14 @@ export default function ListPost() {
   const [filterStatus, setFilterStatus] = useState<
     "all" | "active" | "inactive"
   >("all");
+
+  // ----- Modal chặn -----
+  const [showConfirmBlock, setShowConfirmBlock] = useState(false);
+  const [postToToggle, setPostToToggle] = useState<Post | null>(null);
+
+  // ----- Modal xóa -----
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<Post | null>(null);
 
   const getAllPost = async () => {
     const result = await axios.get<Post[]>("http://localhost:8080/posts");
@@ -58,13 +66,6 @@ export default function ListPost() {
     handleClose();
   };
 
-  const handleDelete = async (id: number) => {
-    if (window.confirm("Bạn có chắc muốn xóa?")) {
-      await axios.delete(`http://localhost:8080/posts/${id}`);
-      setPosts((prev) => prev.filter((p) => p.id !== id));
-    }
-  };
-
   const handleEdit = (post: Post) => {
     setEditId(post.id);
     setForm({
@@ -77,15 +78,40 @@ export default function ListPost() {
     setShow(true);
   };
 
-  // ---- MỚI: Chặn / Bỏ chặn ----
-  const handleToggleStatus = async (post: Post) => {
-    const updated = { ...post, status: !post.status };
-    await axios.put(`http://localhost:8080/posts/${post.id}`, updated);
-    setPosts((prev) =>
-      prev.map((p) => (p.id === post.id ? { ...p, status: !p.status } : p))
-    );
+  // ========== CHẶN ==========
+  const handleConfirmToggle = (post: Post) => {
+    setPostToToggle(post);
+    setShowConfirmBlock(true);
   };
 
+  const handleToggleStatus = async () => {
+    if (!postToToggle) return;
+    const updated = { ...postToToggle, status: !postToToggle.status };
+    await axios.put(`http://localhost:8080/posts/${postToToggle.id}`, updated);
+    setPosts((prev) =>
+      prev.map((p) =>
+        p.id === postToToggle.id ? { ...p, status: !p.status } : p
+      )
+    );
+    setShowConfirmBlock(false);
+    setPostToToggle(null);
+  };
+
+  // ========== XÓA ==========
+  const handleConfirmDelete = (post: Post) => {
+    setPostToDelete(post);
+    setShowConfirmDelete(true);
+  };
+
+  const handleDelete = async () => {
+    if (!postToDelete) return;
+    await axios.delete(`http://localhost:8080/posts/${postToDelete.id}`);
+    setPosts((prev) => prev.filter((p) => p.id !== postToDelete.id));
+    setShowConfirmDelete(false);
+    setPostToDelete(null);
+  };
+
+  // ----- Filter & search -----
   const filteredPosts = posts.filter((p) => {
     const matchKeyword = p.title.toLowerCase().includes(keyword.toLowerCase());
     const matchStatus =
@@ -126,7 +152,7 @@ export default function ListPost() {
         </Button>
       </div>
 
-      {/* Modal thêm / sửa */}
+      {/* Modal thêm/sửa */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{editId ? "Sửa bài viết" : "Thêm bài viết"}</Modal.Title>
@@ -174,6 +200,57 @@ export default function ListPost() {
         </Modal.Footer>
       </Modal>
 
+      {/* Modal xác nhận chặn */}
+      <Modal show={showConfirmBlock} onHide={() => setShowConfirmBlock(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Xác nhận</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert variant="warning">
+            Bạn có chắc chắn muốn{" "}
+            {postToToggle?.status ? "bỏ chặn" : "ngưng xuất bản"} bài viết?
+          </Alert>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowConfirmBlock(false)}
+          >
+            Hủy
+          </Button>
+          <Button variant="primary" onClick={handleToggleStatus}>
+            Xác nhận
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal xác nhận xóa */}
+      <Modal
+        show={showConfirmDelete}
+        onHide={() => setShowConfirmDelete(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Xác nhận</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert variant="danger">
+            Bạn có chắc chắn muốn xóa bài viết "
+            <strong>{postToDelete?.title}</strong>"?
+          </Alert>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowConfirmDelete(false)}
+          >
+            Hủy
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Xóa
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {/* Bảng dữ liệu */}
       <Table striped bordered hover>
         <thead>
@@ -203,25 +280,20 @@ export default function ListPost() {
               </td>
               <td>{p.content}</td>
               <td>
-                {/* Nút Chặn / Bỏ chặn */}
                 <Button
                   size="sm"
                   variant={p.status ? "success" : "warning"}
-                  onClick={() => handleToggleStatus(p)}
+                  onClick={() => handleConfirmToggle(p)}
                 >
                   {p.status ? "Bỏ chặn" : "Chặn"}
                 </Button>{" "}
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => handleEdit(p)}
-                >
+                <Button size="sm" variant="info" onClick={() => handleEdit(p)}>
                   Sửa
                 </Button>{" "}
                 <Button
                   size="sm"
                   variant="danger"
-                  onClick={() => handleDelete(p.id)}
+                  onClick={() => handleConfirmDelete(p)}
                 >
                   Xóa
                 </Button>
